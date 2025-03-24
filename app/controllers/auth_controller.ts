@@ -1,11 +1,51 @@
-import { UserValidator } from '#validators/auth'
+import User from '#models/user'
+import { LoginValidator, RegisterValidator } from '#validators/auth'
 import type { HttpContext } from '@adonisjs/core/http'
 
 export default class AuthController {
     public async register({ request, response }: HttpContext) {
-        const { name, firstname, email, phone, role, password } = request.all()
+        const { name, firstname, email, phone, password, role } = await request.validateUsing(RegisterValidator)
 
-        const validation = await UserValidator.validate(name, firstname, email, phone, role, password)
+        const user = await User.create({ name, firstname, email, phone, password, role })
 
+        return response.created({ message: 'Inscription réussie', user })
+    }
+
+    public async login({ request, response }: HttpContext) {
+        try {
+            const { email, password } = await request.validateUsing(LoginValidator)
+            const user = await User.verifyCredentials(email, password)
+
+            const token = await User.accessTokens.create(user,
+                ['*'],
+                {
+                    name: request.input('token_name'),
+                    expiresIn: '7 days'
+                })
+            return token
+
+        } catch (error) {
+            return response.badRequest({ message: 'Votre mot de passe ou email est incorrect !' })
+        }
+    }
+
+    public async logout({ response, auth }: HttpContext) {
+        try {
+            const user = auth.user!
+
+            await User.accessTokens.delete(user, user.currentAccessToken.identifier)
+
+            return response.ok({ message: 'Déconnexion réussie' });
+        } catch (error) {
+            console.error(error);
+            return response.internalServerError({ message: 'Erreur lors de la déconnexion' });
+        }
+    }
+
+    public async me({ auth }: HttpContext) {
+        await auth.check()
+        return {
+            user: auth.user
+        }
     }
 }
