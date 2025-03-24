@@ -7,8 +7,12 @@ export default class extends BaseSchema {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id').primary().notNullable()
 
-      table.integer('producer_id').unsigned().notNullable()
-      table.foreign('producer_id').references('users.id').onDelete('CASCADE')
+      table.integer('request_id').unsigned().notNullable()
+      table.foreign('request_id').references('request.id').onDelete('CASCADE')
+
+      table.enum('type', ['Recyclables', 'Déchets organiques', 'Déchets électroniques', 'Autres']).notNullable()
+
+      table.string('weight').notNullable()
 
       table.string('qr_code').notNullable()
 

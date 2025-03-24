@@ -2,29 +2,31 @@ import { DateTime } from 'luxon'
 import type { BelongsTo } from '@adonisjs/lucid/types/relations'
 import { column, BaseModel, belongsTo } from '@adonisjs/lucid/orm'
 import User from '#models/user'
-import Offer from '#models/offer'
 
-export default class Collection extends BaseModel {
+export default class Request extends BaseModel {
   @column({ isPrimary: true })
   declare id: number
 
   @column()
-  declare offerId: number
+  declare producerId: number
 
-  @belongsTo(() => Offer)
-  declare offer: BelongsTo<typeof Offer>
-
-  @column()
-  declare collectorId: number
-
-  @belongsTo(() => User, { foreignKey: 'collectorId' })
-  declare collector: BelongsTo<typeof User>
+  @belongsTo(() => User, { foreignKey: 'producerId' })
+  declare producer: BelongsTo<typeof User>
 
   @column()
-  declare type: string
-  
+  declare type: 'Recyclables' | 'Déchets organiques' | 'Déchets électroniques' | 'Autres'
+
   @column()
-  declare weight: number
+  declare collectDate: string
+
+  @column()
+  declare collectHour: string
+
+  @column()
+  declare note: string
+
+  @column()
+  declare statut: 'en attente' | 'accepté' | 'terminé' 
 
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime
