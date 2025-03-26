@@ -12,13 +12,19 @@ export default class extends BaseSchema {
 
       table.enum('type', ['Recyclables', 'Déchets organiques', 'Déchets électroniques', 'Autres']).notNullable()
 
-      table.string('collectDate').notNullable()
+      table.string('weight').notNullable()
 
-      table.string('collectHour').notNullable()
+      table.string('collect_date').notNullable()
 
-      table.string('note').notNullable()
+      table.string('collect_hour').notNullable()
 
-      table.enum('statut', ['en attente', 'accepté', 'terminé']).notNullable()
+      table.string('message').nullable()
+
+      table.text('qr_code').notNullable()
+
+      table.string('qr_code_id').notNullable()
+
+      table.enum('statut', ['en attente', 'accepté']).notNullable()
 
       table.timestamp('created_at')
       table.timestamp('updated_at')

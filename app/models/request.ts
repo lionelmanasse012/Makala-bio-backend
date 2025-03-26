@@ -17,16 +17,25 @@ export default class Request extends BaseModel {
   declare type: 'Recyclables' | 'Déchets organiques' | 'Déchets électroniques' | 'Autres'
 
   @column()
+  declare weight: number
+  
+  @column()
   declare collectDate: string
 
   @column()
   declare collectHour: string
 
   @column()
-  declare note: string
+  declare message: string
 
   @column()
-  declare statut: 'en attente' | 'accepté' | 'terminé' 
+  declare qrCode: string
+
+  @column()
+  declare qrCodeId: string
+
+  @column()
+  declare statut: 'en attente' | 'accepté'
 
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime

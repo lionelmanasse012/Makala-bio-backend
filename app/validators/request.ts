@@ -1,6 +1,5 @@
 import vine, { SimpleMessagesProvider } from '@vinejs/vine'
 
-
 vine.messagesProvider = new SimpleMessagesProvider({
     // Applicable for all fields
     'required': 'Le champ {{ field }} est obligatoire',
@@ -25,6 +24,6 @@ export const RequestValidator = vine.compile(
         weight: vine.number().positive(),
         collectDate: vine.string(),
         collectHour: vine.string(),
-        note: vine.string().escape().optional()
+        message: vine.string().escape().optional()
     })
 )
