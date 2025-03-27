@@ -4,7 +4,7 @@ import Offer from '#models/offer'
 import Collection from '#models/collection'
 
 export default class CollectorController {
-    public async post({ response, auth, request }: HttpContext) {
+    public async allRequests({ response, auth, request }: HttpContext) {
 
 
         try {
@@ -48,13 +48,13 @@ export default class CollectorController {
                 })
             }
 
-            // if (requestRecord.status === 'acceptée') {
-            //     return response.conflict({
-            //         status: "error",
-            //         message: "Cette demande a déjà été acceptée",
-            //     })
+            if (requestRecord.status === 'acceptée') {
+                return response.conflict({
+                    status: "error",
+                    message: "Cette demande a déjà été acceptée",
+                })
 
-            // }
+            }
 
             const offer = await Offer.create({
                 type: requestRecord.type,
@@ -125,7 +125,7 @@ export default class CollectorController {
 
             return response.ok({
                 status: "success",
-                message: "Déchet collecté avec succès",
+                message: "Collecte effectuée avec succès",
                 collection
             })
         } catch (error) {
