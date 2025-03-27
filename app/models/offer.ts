@@ -24,7 +24,10 @@ export default class Offer extends BaseModel {
   declare qrCode: string
 
   @column()
-  declare status: 'pending' | 'accepted' | 'collected'
+  declare qrCodeId: string
+
+  @column()
+  declare status: 'acceptée' | 'collectée'
 
   @column()
   declare collectorId: number | null

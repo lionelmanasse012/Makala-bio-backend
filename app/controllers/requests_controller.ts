@@ -32,9 +32,9 @@ export default class RequestController {
             collectHour,
             message,
             qrCode,
-            qrCodeId,
+            qrCodeId: `QR-${qrCodeId}`,
             producerId: auth.user!.id,
-            statut: 'en attente'
+            status: 'en attente'
         })
 
         return response.created({ message: 'Demande effectuée', req })

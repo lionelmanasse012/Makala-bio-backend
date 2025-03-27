@@ -18,7 +18,7 @@ export default class Request extends BaseModel {
 
   @column()
   declare weight: number
-  
+
   @column()
   declare collectDate: string
 
@@ -35,7 +35,7 @@ export default class Request extends BaseModel {
   declare qrCodeId: string
 
   @column()
-  declare statut: 'en attente' | 'accepté'
+  declare status: 'en attente' | 'acceptée' | 'collectée'
 
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime

@@ -48,11 +48,4 @@ export default class AuthController {
             return response.internalServerError({ message: 'Erreur lors de la déconnexion' });
         }
     }
-
-    public async me({ auth }: HttpContext) {
-        await auth.check()
-        return {
-            user: auth.user
-        }
-    }
 }
