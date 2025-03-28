@@ -29,7 +29,11 @@ export default class AuthController {
                     name: request.input('token_name'),
                     expiresIn: '7 days'
                 })
-            return response.ok({ message: 'Connexion réussie', data: { token, user } })
+            const data = {
+                token: token,
+                user
+            }
+            return response.ok(data)
 
         } catch (error) {
             return response.badRequest({ message: 'Votre mot de passe ou email est incorrect !' })
