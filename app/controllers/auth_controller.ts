@@ -1,8 +1,6 @@
 import User from '#models/user'
 import { LoginValidator, RegisterValidator } from '#validators/auth'
 import type { HttpContext } from '@adonisjs/core/http'
-import { messages } from '@vinejs/vine/defaults'
-import { umask } from 'process'
 
 export default class AuthController {
     public async register({ request, response }: HttpContext) {
