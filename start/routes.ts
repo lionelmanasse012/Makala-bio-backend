@@ -14,6 +14,11 @@ import RequestController from '#controllers/requests_controller'
 import CollectorController from '#controllers/collectors_controller'
 import AdminController from '#controllers/admin_controller'
 
+// Ping
+router.post('/ping', async () => {
+    return { status: 'ok' }
+})
+
 // Auth
 router.group(() => {
     router.post('/auth/register', [AuthController, 'register'])
@@ -38,8 +43,8 @@ router.group(() => {
     router.get('/collector/show/requests', [CollectorController, 'allRequests'])
     router.post('/collector/add/offer', [CollectorController, 'handleOffer'])
     router.post('/collector/scan/offer', [CollectorController, 'scanOffer'])
-}) .use([middleware.auth(),middleware.collector()])
-   
+}).use([middleware.auth(), middleware.collector()])
+
 
 // ************** producer ************** 
 // Add requests
