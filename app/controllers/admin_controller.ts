@@ -13,7 +13,7 @@ export default class AdminController {
             const lowercase = 'abcdefghijklmnopqrstuvwxyz';
             const uppercase = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
             const numbers = '0123456789';
-            const specials = '!@#$%^&*()-_=+[]{}|;:,.<>?';
+            const specials = '!@?';
 
             const allCharacters = lowercase + uppercase + numbers + specials;
 
