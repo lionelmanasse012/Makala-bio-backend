@@ -1,6 +1,8 @@
 import User from '#models/user'
 import { LoginValidator, RegisterValidator } from '#validators/auth'
 import type { HttpContext } from '@adonisjs/core/http'
+import { messages } from '@vinejs/vine/defaults'
+import { umask } from 'process'
 
 export default class AuthController {
     public async register({ request, response }: HttpContext) {
@@ -29,7 +31,7 @@ export default class AuthController {
                     name: request.input('token_name'),
                     expiresIn: '7 days'
                 })
-            return token
+            return response.ok({ message: 'Connexion réussie', data: { token, user } })
 
         } catch (error) {
             return response.badRequest({ message: 'Votre mot de passe ou email est incorrect !' })
